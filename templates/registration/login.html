@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="card w-full max-w-md p-8">
+        <h2 class="text-3xl font-bold text-center text-white mb-6">Login</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-4">
+                <label for="{{ field.id_for_label }}" class="block text-gray-400 text-sm font-bold mb-2">{{ field.label }}</label>
+                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-input shadow appearance-none rounded w-full py-3 px-4 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500">
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs italic mt-2">{{ field.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="flex items-center justify-between mt-6">
+                <button class="btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline w-full" type="submit">
+                    Sign In
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
